@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number Pair Match Instructions</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>Number Pair Match</h1>
+      <p>Game Instructions</p>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>How the Game Works</h2>
+        <p>
+          In this game, the player flips two cards at a time and tries to find a
+          valid number pair.
+        </p>
+        <p>A valid pair depends on the selected pair type:</p>
+        <ul>
+          <li>
+            <strong>Number and Word:</strong> for example <code>5</code> and
+            <code>five</code>
+          </li>
+          <li>
+            <strong>Sum and Answer:</strong> for example <code>3 + 4</code> and
+            <code>7</code>
+          </li>
+          <li><strong>Mixed:</strong> a combination of both types</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Steps to Play</h2>
+        <ol>
+          <li>Enter your player name on the launcher page.</li>
+          <li>Select board size and difficulty.</li>
+          <li>Select the pair type.</li>
+          <li>Choose optional settings such as timer and hints.</li>
+          <li>Open the game window.</li>
+          <li>Click <strong>Start Game</strong>.</li>
+          <li>Flip two cards to try to find a correct pair.</li>
+          <li>Continue until all pairs are matched.</li>
+        </ol>
+      </section>
+
+      <section class="card">
+        <h2>Scoring and Difficulty</h2>
+        <p>The score increases when a correct pair is matched.</p>
+        <p>Difficulty affects:</p>
+        <ul>
+          <li>points awarded for correct matches</li>
+          <li>the delay before incorrect cards flip back</li>
+          <li>the time bonus at the end of the game</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Buttons</h2>
+        <ul>
+          <li><strong>Start Game</strong> starts a new game</li>
+          <li><strong>Show Hint</strong> highlights one possible card</li>
+          <li><strong>Save Session</strong> stores the current game state</li>
+          <li><strong>Load Session</strong> restores a saved game</li>
+          <li><strong>Reset Game</strong> clears the current game</li>
+          <li>
+            <strong>Back to Settings</strong> returns to the launcher page
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <div class="button-row">
+          <button type="button" onclick="window.location.href = 'index.html'">
+            Back
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <p>Number Pair Match Instructions</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number Pair Match Game</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-window-wrap">
+      <section class="card">
+        <h1>Number Pair Match</h1>
+
+        <div class="button-row">
+          <button id="startBtn" type="button">Start Game</button>
+          <button id="hintBtn" type="button">Show Hint</button>
+          <button id="saveBtn" type="button">Save Session</button>
+          <button id="loadBtn" type="button">Load Session</button>
+          <button id="resetBtn" type="button">Reset Game</button>
+          <button id="backBtn" type="button">Back to Settings</button>
+        </div>
+
+        <div class="stats-grid game-stats-grid">
+          <div class="stat-box">
+            <span class="label">Player</span>
+            <span id="displayPlayer">-</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="label">Moves</span>
+            <span id="displayMoves">0</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="label">Matches</span>
+            <span id="displayMatches">0</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="label">Pairs Left</span>
+            <span id="displayPairsLeft">0</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="label">Score</span>
+            <span id="displayScore">0</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="label">Time</span>
+            <span id="displayTime">0 s</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div id="messageArea" class="message-area">
+          Click Start Game when ready.
+        </div>
+      </section>
+
+      <section class="card">
+        <div id="boardInfo" class="board-info">
+          <span
+            ><strong>Board:</strong> <span id="displayBoardSize">-</span></span
+          >
+          <span
+            ><strong>Difficulty:</strong>
+            <span id="displayDifficulty">-</span></span
+          >
+          <span
+            ><strong>Pair Type:</strong>
+            <span id="displayPairType">-</span></span
+          >
+          <span
+            ><strong>Best Score Cookie:</strong>
+            <span id="displayBestScore">0</span></span
+          >
+        </div>
+
+        <div id="gameBoard" class="game-board"></div>
+      </section>
+
+      <section class="card">
+        <h2>Game Log</h2>
+        <div id="logArea" class="log-area"></div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
