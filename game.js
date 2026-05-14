@@ -59,7 +59,7 @@ function GameCard(displayValue, secretId, category) {
     this.category = category;
 }
 
-const masterDeck = [
+let masterDeck = [
     new GameCard("4", 4, "digit"), new GameCard("Four", 4, "word"), new GameCard("8 / 2", 4, "equation"),
     new GameCard("7", 7, "digit"), new GameCard("Seven", 7, "word"), new GameCard("10 - 3", 7, "equation"),
     new GameCard("9", 9, "digit"), new GameCard("Nine", 9, "word"), new GameCard("3 x 3", 9, "equation"),
@@ -105,7 +105,7 @@ function buildActiveDeck() {
 
 function shuffleDeck(array) {
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        let j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
@@ -177,7 +177,7 @@ function checkForMatch() {
 
         if (matchesFound === totalPairs) {
             clearInterval(timerInterval);
-            setTimeout(() => { alert(`YOU WIN! Final Score: ${currentScore}`); }, 600);
+            setTimeout(() => { alert(`🎉 YOU WIN! Final Score: ${currentScore}`); }, 600);
         }
     } else {
         // MISTAKE: JS Shake Animation & Red Glow
@@ -210,7 +210,7 @@ function checkForMatch() {
             if (livesLeft <= 0) {
                 clearInterval(timerInterval);
                 gameStarted = false;
-                alert(`GAME OVER! You ran out of lives. Final Score: ${currentScore}`);
+                alert(`💥 GAME OVER! You ran out of lives. Final Score: ${currentScore}`);
             } else {
                 isBoardLocked = false;
             }
