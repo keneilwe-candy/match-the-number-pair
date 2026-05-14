@@ -36,14 +36,16 @@ setupForm.addEventListener ("input", function(){
 });
 
 // --- 3. Launching the Game (Validation and Storage) ---
-openGameBtn.addEventListener("click", function(){
+document.getElementById("openGameBtn").addEventListener("click", function(){
 
     // A. Validation (Defensive Programming) ---
     let finalName = playerNameInput.value.trim();
 
     // If the input is empty, halt the flow and demand an answer using the required prompt()
-    if (finalName === "") {
-        finalName = prompt("Please enter you player name before starting:");
+    if (!name) {
+        name = prompt("Enter your name:");
+        if (!name) return;
+    
 
         // Strict validation: Check if they clicked 'Cancel' (null) or submitted blank spaces
         if (!finalName || finalName.trim() === "") {
@@ -55,11 +57,21 @@ openGameBtn.addEventListener("click", function(){
         playerNameInput.value = finalName; 
     }
 
-    // --- B. Global Storage (Cookies) --- 
-    /* Cookies are attached to the browser. encodeURIComponent ensures that if they
-    typed weird characters (like spaces or symbols), it doesn't break the cookie string.*/
-    document.cookie = "playerName=" + encodeURIComponent(finalName) + "; path=/";
+   // Set 7-day Cookie
+    let d = new Date();
+    d.setTime(d.getTime() + (7*24*60*60*1000));
+    document.cookie = `playerName=${encodeURIComponent(name)}; expires=${d.toUTCString()}; path=/`;
 
+    let settings = {
+        boardSize: document.getElementById("boardSize").value,
+        difficulty: document.getElementById("difficulty").value,
+        pairType: document.querySelector('input[name="pairType"]:checked').value,
+        showTimer: document.getElementById("showTimer").checked,
+        enableHints: document.getElementById("enableHints").checked
+    };
+    sessionStorage.setItem('numberMatchSettings', JSON.stringify(settings));
+    window.location.href = 'game.html';
+});
     // --- C. Session Storage (Data Transfer) ---
     // We bundle the scattered DOM values into a clean JavaScript Object (Key-Value pairs).
     let gameSettings = {
@@ -69,6 +81,11 @@ openGameBtn.addEventListener("click", function(){
         showTimer: showTimerCheck.checked,
         enableHints: enableHintsCheck.checked
     };
+
+    document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+    // Save to LocalStorage
+    alert("Launcher settings saved!");
+    });
 
     // sessionStorage only accepts flat strings, not Objects. 
     // JSON.stringify 'serializes' the object into a text format so it can be saved.
