@@ -2,6 +2,7 @@
 let gameBoard = document.getElementById("gameBoard");
 let logArea = document.getElementById("logArea");
 let messageArea = document.getElementById("messageArea");
+let gameBoard = document.getElementById("gameBoard");
 
 
 // Stats Displays
@@ -30,6 +31,7 @@ let isBoardLocked = false; // Prevents clicking while checking for a match
 // Unpacking the settings
 let gameSettings = JSON.parse(sessionStorage.getItem('numberMatchSettings'));
 
+let playerName = document.cookie.split('; ').find(row => row.startsWith('playerName='))?.split('=')[1] || "Player";
 // Security check: If someone bypassed the launcher and went straight to game.html
 if (!gameSettings) {
     alert("No game settings found. Returning to launcher.");
@@ -55,9 +57,9 @@ function initializeGameUI() {
     displayDifficulty.innerText = gameSettings.difficulty;
     if (displayLives) displayLives.innerText = livesLeft; 
     
-    if (gameSettings.showTimer === false) displayTime.parentElement.style.display = 'none'; 
-    gameBoard.className = "game-board board-" + gameSettings.boardSize;
-    
+    /*if (gameSettings.showTimer === false) displayTime.parentElement.style.display = 'none'; 
+    gameBoard.className = "game-board board-" + gameSettings.boardSize;*/
+    document.getElementById("displayPlayer").innerText = decodeURIComponent(playerName);
     // 2. Shape the board using the CSS classes you built in styles.css
     gameBoard.className = "game-board"; // Reset to default
     gameBoard.classList.add("board-" + gameSettings.boardSize); 
@@ -352,6 +354,7 @@ document.getElementById('startBtn').addEventListener('click', function() {
     gameStarted = true;
     startTimer();
     logEvent("Game has started")
+}
 // The Back Button
 document.getElementById('backBtn').addEventListener('click', function() {
     // Sends the user back to the launcher
