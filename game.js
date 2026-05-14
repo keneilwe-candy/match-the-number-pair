@@ -52,6 +52,10 @@ function initializeGameUI() {
     displayPlayer.innerText = playerName;
     displayBoardSize.innerText = gameSettings.boardSize;
     displayDifficulty.innerText = gameSettings.difficulty;
+    if (displayLives) displayLives.innerText = livesLeft; 
+    
+    if (gameSettings.showTimer === false) displayTime.parentElement.style.display = 'none'; 
+    gameBoard.className = "game-board board-" + gameSettings.boardSize;
     
     // 2. Shape the board using the CSS classes you built in styles.css
     gameBoard.className = "game-board"; // Reset to default
@@ -223,59 +227,85 @@ function checkForMatch() {
 
     // 3. Check their hidden Secret IDs
     if (card1.dataset.matchId === card2.dataset.matchId) {
-        // IT'S A MATCH!
-        
+        // IT'S A MATCH
         // Add the green matched CSS class
         card1.classList.add('matched');
         card2.classList.add('matched');
 
+        //This section stops the player from clicking them while they are animate away
+        card1.style.pointerEvents = 'none';
+        card2.style.pointerEvents = 'none';
+        //The Javscript required to the cards to pop and fade away when correctly matched.
+        let popFadrFrame = [
+            { transform: 'scale(1)', opacity: 1, boxShadow: 'none' },
+            { transform: 'scale(1.15)', opacity: 1, boxShadow: '0 0 20px #10b981', offset: 0.4 },
+            { transform: 'scale(0.5)', opacity: 0, boxShadow: 'none' }
+        ];
+        let popFadeTiming = { duration: 500, easing: 'ease-in', fill: 'forwards' };
+        card1.animate(popFadeFrames, popFadeTiming);
+        card2.animate(popFadeFrames, popFadeTiming);
+            
         // Update stats
         matchesFound++;
         displayMatches.innerText = matchesFound;
         
         // Give them points based on difficulty!
-        let pointsEarned = 10;
-        if (gameSettings.difficulty === "medium") pointsEarned = 15;
-        if (gameSettings.difficulty === "hard") pointsEarned = 25;
+        let pointsEarned = (gameSettings.difficulty === "hard") ? 25 : (gameSettings.difficulty === "medium") ? 15 : 10;
+        currentScore += pointsEarned; 
+        displayScore.innerText = currentScore;
         
         currentScore += pointsEarned;
         displayScore.innerText = currentScore;
 
         // Clear the temporary array and unlock the board
-        flippedCards = [];
+        flippedCards = []; 
         isBoardLocked = false;
 
         // Check if they won the game
         if (matchesFound === totalPairs) {
-    
-            // 1. Open the setTimeout
-            setTimeout(function() {
-                
-                // 2. The Alert goes entirely inside the function
-                alert(`You won! Final Score: ${currentScore}`);
-                
-        }, 500); // 3. The 500 sits outside the function, but inside setTimeout!
-        
+            clearInterval(timerInterval);
+            setTimeout(() => { showBanner(true); }, 600); // This section of code will trigger the Winner Banner 
         }
-
     } else {
-        // NOT A MATCH...
-        
-        // Determine how long to let them look at the wrong cards before flipping them back
-        let penaltyDelay = 1500; // Easy gets 1.5 seconds
-        if (gameSettings.difficulty === "medium") penaltyDelay = 1000;
-        if (gameSettings.difficulty === "hard") penaltyDelay = 500; 
+
+        //This section is to trigger the incorrect animation (Red shake)
+        card1.classList.add('incorrect'); 
+        card2.classList.add('incorrect');
+
+        //The the section of the code that will create the amnimation for the Error Shake 
+        let shakeFrames = [
+            { transform: 'translateX(0)' },
+            { transform: 'translateX(-6px)' },
+            { transform: 'translateX(6px)' },
+            { transform: 'translateX(-6px)' },
+            { transform: 'translateX(6px)' },
+            { transform: 'translateX(0)' }
+        ];
+        card1.animate(shakeFrames, { duration: 400, easing: 'ease' });
+        card2.animate(shakeFrames, { duration: 400, easing: 'ease' });
+
+        // --- SUBTRACT A LIFE ---
+        livesLeft--;
+        // Updates the screen with the most recent number of lives of lives left 
+        if(displayLives) displayLives.innerText = livesLeft;
+
+        let penaltyDelay = (gameSettings.difficulty === "hard") ? 500 : (gameSettings.difficulty === "medium") ? 1000 : 1500; 
 
         setTimeout(() => {
-            // Remove the visual flip class and hide the text
-            card1.classList.remove('flipped');
+            card1.classList.remove('flipped', 'incorrect'); 
             card1.innerText = "";
-            card2.classList.remove('flipped');
+            card2.classList.remove('flipped', 'incorrect'); 
             card2.innerText = "";
-
-            // Clear the temporary array and unlock the board
             flippedCards = [];
-            isBoardLocked = false;
+        
+        // Check if they died!
+            if (livesLeft <= 0) {
+                clearInterval(timerInterval); 
+                gameStarted = false; 
+                showBanner(false); // Triggers the custom LOSE banner
+            } else {
+                isBoardLocked = false; 
+            }
         }, penaltyDelay);
     }
 }
