@@ -3,6 +3,7 @@ let gameBoard = document.getElementById("gameBoard");
 let logArea = document.getElementById("logArea");
 let messageArea = document.getElementById("messageArea");
 
+
 // Stats Displays
 let displayPlayer = document.getElementById("displayPlayer");
 let displayMoves = document.getElementById("displayMoves");
@@ -220,6 +221,25 @@ function handleCardClick(clickedCard) {
 function checkForMatch() {
     // 1. Lock the board so they can't click a 3rd card
     isBoardLocked = true;
+    // Inside checkForMatch()
+    //--- Change 7: Difficulty scaling for points and timing ---
+    let pointsEarned = 10;
+    let penaltyDelay = 1500; // Standard for Easy
+    
+    if (gameSettings.difficulty === "medium") {
+        pointsEarned = 15;
+        penaltyDelay = 1000;
+    } else if (gameSettings.difficulty === "hard") {
+        pointsEarned = 25;
+        penaltyDelay = 500; // Much faster flip-back for Hard mode
+    }
+    
+    // Apply these dynamically
+    currentScore += pointsEarned;
+    // ... later in the code ...
+    setTimeout(() => {
+        // flip cards back after the difficulty-based delay
+    }, penaltyDelay);
 
     // 2. Grab the two cards they just clicked
     let card1 = flippedCards[0];
@@ -327,6 +347,11 @@ function logEvent(messageString) {
 
 // --- 9. Dashboard Buttons ---
 
+// --- Change 1: Start Button logic 
+document.getElementById('startBtn').addEventListener('click', function() {
+    gameStarted = true;
+    startTimer();
+    logEvent("Game has started")
 // The Back Button
 document.getElementById('backBtn').addEventListener('click', function() {
     // Sends the user back to the launcher
@@ -359,30 +384,32 @@ document.getElementById('resetBtn').addEventListener('click', function() {
     }
 });
 
+// --- Change 6: Defensive Hint Logic ---
 document.getElementById('hintBtn').addEventListener('click', function() {
-    // 1. Find all cards on the board that DO NOT have the 'matched' class
-    // We use Array.from() to turn the HTML elements into a standard JavaScript array
-    let activeCards = Array.from(document.querySelectorAll('.number-card:not(.matched)'));
+    // 1. Validation: Check if hints are actually enabled
+    if (gameSettings.enableHints === false) {
+        alert("Hints were disabled in your pre-game settings!");
+        return; 
+    }
 
-    // If there are less than 2 cards left, a hint is useless
+    // 2. State Check: Only find matches for cards still on the board
+    let activeCards = Array.from(document.querySelectorAll('.number-card:not(.matched)'));
+    activeCards = activeCards.filter(card => card.style.pointerEvents !== 'none');
+    
     if (activeCards.length < 2) return; 
 
-    // 2. Grab the hidden matchId of the very first available card
+    // 3. Logic: Find the first available pair and highlight it
     let targetId = activeCards[0].dataset.matchId;
-
-    // 3. Filter our array to find the two cards that share this ID
     let hintPair = activeCards.filter(card => card.dataset.matchId === targetId);
 
-    // 4. Add the orange outline (your .hint CSS class)
     hintPair.forEach(card => card.classList.add('hint'));
-
-    // 5. Deduct points for using a hint! (Optional, but a great game mechanic)
-    currentScore = currentScore - 5; 
+    
+    // 4. Penalty: Deduct points to keep the game balanced
+    currentScore = Math.max(0, currentScore - 5); 
     displayScore.innerText = currentScore;
-    logEvent(`Hint used for pair: ${targetId}. Lost 5 points.`);
+    logEvent(`Hint used. Penalty: -5 points.`);
 
-    // 6. Use setTimeout to remove the orange outline after 2 seconds
-    setTimeout(function (card){
+    setTimeout(() => {
         hintPair.forEach(card => card.classList.remove('hint'));
     }, 2000);
 });
