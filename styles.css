@@ -1,10 +1,11 @@
 :root {
-    --page-bg: #FAF9F6;       
-    --card-down: #E2D4F0;     
-    --card-flipped: #FFFFFF;  
-    --card-matched: #B4E4D8;  
-    --border-color: #B8C0D8;  
+    --page-bg: #FAF9F6;        
+    --card-down: #E2D4F0;      
+    --card-flipped: #FFFFFF;   
+    --card-matched: #B4E4D8;   
+    --border-color: #B8C0D8;   
     --text-color: #4A4E69;
+} /* <-- This closing bracket was missing! */
 
 * {
     box-sizing: border-box;
