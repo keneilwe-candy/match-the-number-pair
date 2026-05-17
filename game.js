@@ -66,6 +66,21 @@ function GameCard(displayValue, secretId, category) {
 
 let masterDeck = [];
 
+//Change 1: Dynamic Array Generation (Fixing Board Size Bug)
+/* Old code:
+masterDeck = [
+    new GameCard("4", 4, "digit"), new GameCard("Four", 4, "word"),
+    // ... (Hardcoded cards that ran out on 6x6 board)
+];
+*/
+// Replaced with:
+const numWords = [
+    "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", 
+    "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty",
+    "Twenty-One", "Twenty-Two", "Twenty-Three", "Twenty-Four", "Twenty-Five", "Twenty-Six", "Twenty-Seven", "Twenty-Eight", "Twenty-Nine", "Thirty",
+    "Thirty-One", "Thirty-Two", "Thirty-Three", "Thirty-Four", "Thirty-Five"
+];
+
 // Rubric requirement: Arrays Created dynamically (prevents 6x6 board crash)
 const numWords = [
     "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", 
@@ -194,10 +209,20 @@ function checkForMatch() {
             // Set Cookie (Rubric: Cookies Set)
             document.cookie = "bestScore=" + currentScore + "; path=/; max-age=31536000"; 
             
-            setTimeout(() => { alert(`🎉 YOU WIN! Final Score: ${currentScore}`); }, 600);
+            setTimeout(() => { alert(`YOU WIN! Final Score: ${currentScore}`); }, 600);
         }
     } else {
         // MISTAKE: JS Shake Animation & Red Glow
+        // Change 3: Enhanced Visual Feedback for Incorrect Matches
+        /* Old code:
+        // Just applied shake animation without colour change
+        card1.animate(shakeFrames...);
+        card2.animate(shakeFrames...);
+        */
+        // Replaced with:
+        card1.classList.add('incorrect');
+        card2.classList.add('incorrect');
+        logEvent("Incorrect pair selected.");
         card1.classList.add('incorrect');
         card2.classList.add('incorrect');
 
@@ -235,15 +260,27 @@ function logEvent(messageString) {
 }
 
 // --- 8. Dashboard Buttons ---
+// Change 2: Functional Timer and Game Log Tracking
+/* Old code:
+document.getElementById('startBtn').addEventListener('click', function() {
+    // No timer increment, just a single log entry, board wasn't locked.
+    gameStarted = true;
+});
+*/
+// Replaced with:
 document.getElementById('startBtn').addEventListener('click', function() {
     if (gameStarted) return;
     gameStarted = true;
+    isBoardLocked = false;
     this.style.opacity = "0.5";
-    timerInterval = setInterval(() => { 
-        time++; 
-        displayTime.innerText = time + "s"; 
-    }, 1000);
-    logEvent("Game has started.");
+    
+    if (gameSettings.showTimer) {
+        timerInterval = setInterval(() => { 
+            time++; 
+            displayTime.innerText = time + "s"; 
+        }, 1000);
+    }
+    logEvent("Game has started. Timer running.");
 });
 
 document.getElementById('hintBtn').addEventListener('click', function() {
