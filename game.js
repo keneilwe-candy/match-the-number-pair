@@ -175,6 +175,9 @@ function renderBoard() {
         // Hide the secret ID and display value inside the HTML element's dataset
         cardElement.dataset.matchId = activeDeck[i].secretId;
         cardElement.dataset.displayValue = activeDeck[i].displayValue;
+        
+        // Set the text content to show when flipped (initially empty for face-down cards)
+        cardElement.innerText = ""; // Start face-down with no text
 
         // Tell the card to listen for a mouse click
         cardElement.addEventListener('click', function() {
@@ -274,6 +277,8 @@ function checkForMatch() {
         setTimeout(() => {
             card1.classList.remove('flipped', 'incorrect');
             card2.classList.remove('flipped', 'incorrect');
+            card1.innerText = ""; // Clear the text when flipping back down
+            card2.innerText = ""; // Clear the text when flipping back down
             
             flippedCards = []; 
             isBoardLocked = false; 
