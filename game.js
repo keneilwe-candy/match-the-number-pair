@@ -31,13 +31,7 @@ let timerInterval; // A placeholder variable to hold our stopwatch later
 
 // --- Loading Data from the Launcher ---
 // We grab the rules from sessionStorage (temporary memory) and turn them back into a usable object 
-let gameSettings = JSON.parse(sessionStorage.getItem('numberMatchSettings'));
 
-// If someone tries to open the game directly without picking settings, send them back
-if (!gameSettings) {
-    alert("No game settings found. Returning to launcher.");
-    window.location.href = 'index.html';
-}
 
 // Read the browser's cookies to find the player's name  
 let playerName = "Unknown";
