@@ -281,7 +281,8 @@ function checkForMatch() {
             flippedCards = []; 
             isBoardLocked = false; 
         }, penaltyDelay);
-    
+    }
+}
 
 
 // --- 7. Utilities & Game Log ---
