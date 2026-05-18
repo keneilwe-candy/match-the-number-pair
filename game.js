@@ -31,7 +31,12 @@ let timerInterval; // A placeholder variable to hold our stopwatch later
 
 // --- Loading Data from the Launcher ---
 // We grab the rules from sessionStorage (temporary memory) and turn them back into a usable object 
+let gameSettings = JSON.parse(sessionStorage.getItem('numberMatchSettings'));
 
+if (!gameSettings) {
+    alert("No game settings found. Returning to launcher.");
+    window.location.href = 'index.html';
+}
 
 // Read the browser's cookies to find the player's name  
 let playerName = "Unknown";
@@ -267,17 +272,15 @@ function checkForMatch() {
         let penaltyDelay = (gameSettings.difficulty === "hard") ? 500 : (gameSettings.difficulty === "medium") ? 1000 : 1500;
 
         setTimeout(() => {
+            // FIXED: Removed card.innerText = "" so the content isn't deleted.
             card1.classList.remove('flipped', 'incorrect');
-            card1.innerText = "";
             card2.classList.remove('flipped', 'incorrect');
-            card2.innerText = "";
             
             flippedCards = []; 
             isBoardLocked = false; 
         }, penaltyDelay);
     }
 }
-
 
 // --- 7. Utilities & Game Log ---
         card1.classList.add('incorrect');
