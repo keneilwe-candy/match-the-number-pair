@@ -207,3 +207,25 @@ button:disabled {
     color: var(--text-color);
 }
 
+.number-card.matched {
+    background: #90EE90; /* Light green for matched cards */
+    color: var(--text-color);
+    pointer-events: none; /* Disable clicking on matched cards */
+    opacity: 0.7;
+}
+
+.number-card.incorrect {
+    background: #FFB6C6; /* Light red for incorrect matches */
+    color: var(--text-color);
+}
+
+.number-card.hint {
+    box-shadow: 0 0 20px 4px gold;
+    animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
