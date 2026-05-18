@@ -25,9 +25,10 @@ body {
     color: var(--text-color);
 }
 
-/* ==========================================
-   PAGE LAYOUT & CONTAINERS
-========================================== */
+ 
+  
+/*PAGE LAYOUT & CONTAINERS
+========================================== */ 
 .page-header {
     text-align: center;
     background-color: var(--text-color); /* Using the navy color for the header */
@@ -123,7 +124,7 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* ==========================================
+/*
    DASHBOARD AND STATS
 ========================================== */
 .preview-box {
@@ -165,7 +166,7 @@ button:disabled {
     margin-bottom: 16px;
 }
 
-/* ==========================================
+/* 
    THE GAME BOARD & CARDS
 ========================================== */
 .game-board {
@@ -206,4 +207,4 @@ button:disabled {
     color: var(--text-color);
 }
 
-/* Gameplay Feedback Colors (Kept specific so they stand out) */
+
