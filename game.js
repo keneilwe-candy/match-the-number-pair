@@ -301,8 +301,8 @@ function checkForMatch() {
             flippedCards = []; // Clear the array
             isBoardLocked = false; // Unlock the board
         }, penaltyDelay);
-    }
-}
+    
+
 
 // --- 7. Utilities & Game Log ---
 // This helper function adds a new timestamped line of text to our log box
