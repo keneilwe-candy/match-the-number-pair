@@ -269,57 +269,17 @@ function checkForMatch() {
         card2.animate(shakeFrames, { duration: 400, easing: 'ease' });
 
         // Use the difficulty to set the delay
-       // MISTAKE: JS Shake Animation & Red Glow
-// Change 3: Enhanced Visual Feedback for Incorrect Matches
+        let penaltyDelay = (gameSettings.difficulty === "hard") ? 500 : (gameSettings.difficulty === "medium") ? 1000 : 1500;
 
-/* 
-let penaltyDelay = 1500; 
-
-setTimeout(() => {
-    // It just removes the flip class...
-    card1.classList.remove('flipped');
-    card1.innerText = "";
-    card2.classList.remove('flipped');
-    card2.innerText = "";
-
-    flippedCards = [];
-    isBoardLocked = false;
-}, penaltyDelay);
-},*/// FIXED: Removed the stray closing brace '}' that was trapped inside this comment.
-
-card1.classList.add('incorrect');
-card2.classList.add('incorrect');
-
-// Ensure logEvent is defined elsewhere in your file, or this will throw an error
-logEvent("Incorrect pair selected.");
-
-// Animate the cards to shake back and forth
-let shakeFrames = [
-    { transform: 'translateX(0)' },
-    { transform: 'translateX(-6px)' },
-    { transform: 'translateX(6px)' },
-    { transform: 'translateX(-6px)' },
-    { transform: 'translateX(6px)' },
-    { transform: 'translateX(0)' }
-];
-
-card1.animate(shakeFrames, { duration: 400, easing: 'ease' });
-card2.animate(shakeFrames, { duration: 400, easing: 'ease' });
-
-// Ensure gameSettings is defined globally, or this will throw an error
-let penaltyDelay = (gameSettings.difficulty === "hard") ? 500 : (gameSettings.difficulty === "medium") ? 1000 : 1500;
-
-// setTimeout pauses the code. After the delay, we hide the cards again.
-setTimeout(() => {
+        setTimeout(() => {
             card1.classList.remove('flipped', 'incorrect');
-            card1.innerText = "";
             card2.classList.remove('flipped', 'incorrect');
-            card2.innerText = "";
-            flippedCards = []; // Clear the array
-            isBoardLocked = false; // Unlock the board
+            
+            flippedCards = []; 
+            isBoardLocked = false; 
         }, penaltyDelay);
     }
-};
+}
 // NOTE: Depending on what block this code is inside of (like an 'else' block or a function), 
 // you may need one or two closing braces here. Ensure they balance your opening braces!
 // } 
