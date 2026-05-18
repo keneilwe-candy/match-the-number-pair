@@ -293,23 +293,15 @@ function checkForMatch() {
         let penaltyDelay = (gameSettings.difficulty === "hard") ? 500 : (gameSettings.difficulty === "medium") ? 1000 : 1500;
 
         // setTimeout pauses the code. After the delay, we hide the cards again.
-       // 1. Add the red glow classes immediately
-card1.classList.add('incorrect');
-card2.classList.add('incorrect');
-
-let penaltyDelay = 1500; 
-
-setTimeout(() => {
-    // 2. Remove BOTH the flip and the glow classes after the delay
-    card1.classList.remove('flipped', 'incorrect');
-    card1.innerText = "";
-    
-    card2.classList.remove('flipped', 'incorrect');
-    card2.innerText = "";
-
-    flippedCards = [];
-    isBoardLocked = false;
-}, penaltyDelay);
+        setTimeout(() => {
+            card1.classList.remove('flipped', 'incorrect');
+            card1.innerText = "";
+            card2.classList.remove('flipped', 'incorrect');
+            card2.innerText = "";
+            flippedCards = []; // Clear the array
+            isBoardLocked = false; // Unlock the board
+        }, penaltyDelay);
+    }
 }
 
 // --- 7. Utilities & Game Log ---
