@@ -213,26 +213,26 @@ function handleCardClick(clickedCard) {
 }
 
 // The core logic function that decides if they won or made a mistake
+// The core logic function that decides if they won or made a mistake
 function checkForMatch() {
-    isBoardLocked = true; // Lock the board so they can't click a 3rd card quickly
+    isBoardLocked = true; 
     let card1 = flippedCards[0];
     let card2 = flippedCards[1];
 
     if (card1.dataset.matchId === card2.dataset.matchId) {
-        // MATCH: JS Pop Animation & Green Glow
+        // --- MATCH LOGIC ---
         card1.classList.add('matched');
         card2.classList.add('matched');
         
-        // Make sure they can't be clicked again
         card1.style.pointerEvents = 'none';
         card2.style.pointerEvents = 'none';
 
-        // Animate the cards popping out
         let popFadeFrames = [
-            { transform: 'scale(1)', opacity: 1, boxShadow: 'none' },
-            { transform: 'scale(1.15)', opacity: 1, boxShadow: '0 0 20px #10b981', offset: 0.4 },
-            { transform: 'scale(0.5)', opacity: 0, boxShadow: 'none' }
+            { transform: 'scale(1)', opacity: 1 },
+            { transform: 'scale(1.15)', opacity: 1, offset: 0.4 },
+            { transform: 'scale(1)', opacity: 1 }
         ];
+        
         card1.animate(popFadeFrames, { duration: 500, easing: 'ease-in', fill: 'forwards' });
         card2.animate(popFadeFrames, { duration: 500, easing: 'ease-in', fill: 'forwards' });
 
@@ -240,40 +240,51 @@ function checkForMatch() {
         displayMatches.innerText = matchesFound;
         displayPairsLeft.innerText = totalPairs - matchesFound;
 
-        // Calculate points based on the difficulty level they chose
         let pointsEarned = (gameSettings.difficulty === "hard") ? 25 : (gameSettings.difficulty === "medium") ? 15 : 10;
         currentScore += pointsEarned;
         displayScore.innerText = currentScore;
 
-        flippedCards = []; // Clear the array for the next turn
-        isBoardLocked = false; // Unlock the board
+        flippedCards = []; 
+        isBoardLocked = false; 
 
-        // Win Condition: Did they find all the pairs?
         if (matchesFound === totalPairs) {
-            clearInterval(timerInterval); // Stop the clock
-            
-            // Set Cookie (Rubric: Cookies Set) - Saves best score for 1 year
+            clearInterval(timerInterval);
             document.cookie = "bestScore=" + currentScore + "; path=/; max-age=31536000"; 
-            
-            // Wait just a split second so they can see the final card turn green before alerting
             setTimeout(() => { alert(`YOU WIN! Final Score: ${currentScore}`); }, 600);
         }
     } else {
-        // MISTAKE: JS Shake Animation & Red Glow
-        // Change 3: Enhanced Visual Feedback for Incorrect Matches
-        /*let penaltyDelay = 1500; 
+        // --- MISMATCH LOGIC ---
+        card1.classList.add('incorrect');
+        card2.classList.add('incorrect');
+        logEvent("Incorrect pair selected.");
+
+        let shakeFrames = [
+            { transform: 'translateX(0)' },
+            { transform: 'translateX(-6px)' },
+            { transform: 'translateX(6px)' },
+            { transform: 'translateX(-6px)' },
+            { transform: 'translateX(6px)' },
+            { transform: 'translateX(0)' }
+        ];
+        card1.animate(shakeFrames, { duration: 400, easing: 'ease' });
+        card2.animate(shakeFrames, { duration: 400, easing: 'ease' });
+
+        // Use the difficulty to set the delay
+        let penaltyDelay = (gameSettings.difficulty === "hard") ? 500 : (gameSettings.difficulty === "medium") ? 1000 : 1500;
 
         setTimeout(() => {
-            // It just removes the flip class...
-            card1.classList.remove('flipped');
+            card1.classList.remove('flipped', 'incorrect');
             card1.innerText = "";
-            card2.classList.remove('flipped');
+            card2.classList.remove('flipped', 'incorrect');
             card2.innerText = "";
-
-            flippedCards = [];
-            isBoardLocked = false;
+            
+            flippedCards = []; 
+            isBoardLocked = false; 
         }, penaltyDelay);
-    }*/
+    
+
+
+// --- 7. Utilities & Game Log ---
         card1.classList.add('incorrect');
         card2.classList.add('incorrect');
         logEvent("Incorrect pair selected.");
