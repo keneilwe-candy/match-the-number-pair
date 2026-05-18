@@ -285,7 +285,7 @@ setTimeout(() => {
     flippedCards = [];
     isBoardLocked = false;
 }, penaltyDelay);
-*/ // FIXED: Removed the stray closing brace '}' that was trapped inside this comment.
+},*/// FIXED: Removed the stray closing brace '}' that was trapped inside this comment.
 
 card1.classList.add('incorrect');
 card2.classList.add('incorrect');
@@ -311,14 +311,15 @@ let penaltyDelay = (gameSettings.difficulty === "hard") ? 500 : (gameSettings.di
 
 // setTimeout pauses the code. After the delay, we hide the cards again.
 setTimeout(() => {
-    card1.classList.remove('flipped', 'incorrect');
-    card1.innerText = "";
-    card2.classList.remove('flipped', 'incorrect');
-    card2.innerText = "";
-    flippedCards = []; // Clear the array
-    isBoardLocked = false; // Unlock the board
-}, penaltyDelay);
-
+            card1.classList.remove('flipped', 'incorrect');
+            card1.innerText = "";
+            card2.classList.remove('flipped', 'incorrect');
+            card2.innerText = "";
+            flippedCards = []; // Clear the array
+            isBoardLocked = false; // Unlock the board
+        }, penaltyDelay);
+    }
+};
 // NOTE: Depending on what block this code is inside of (like an 'else' block or a function), 
 // you may need one or two closing braces here. Ensure they balance your opening braces!
 // } 
