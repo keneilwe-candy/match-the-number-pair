@@ -4,11 +4,11 @@
    whole theme later, we only have to change the colors here!
 ========================================== */
 :root {
-    --page-bg: #FAF9F6;        /* The off-white background of the whole page */
-    --card-down: #E2D4F0;      /* The purple color of cards when they are face down */
-    --card-flipped: #FFFFFF;   /* The white color of cards when they are face up */
-    --border-color: #B8C0D8;   /* The light blue color for outlines and borders */
-    --text-color: #4A4E69;     /* The dark navy color for our text */
+    --page-bg: #F8F9FA;       /* Crisp Pearl: A clean, neutral off-white background for the page */
+    --card-down: #1550E6;     /* Classic Royal Blue: Rich color for the cards when face down */
+    --card-flipped: #FFFFFF;  /* White: Bright, clear background for cards when face up */
+    --border-color: #D4AF37;  /* Metallic Gold: Elegant accent color for outlines and borders */
+    --text-color: #0A1931;    /* Deep Midnight Blue: High-contrast, dark navy-like color for text */
 }
 
 /* ==========================================
