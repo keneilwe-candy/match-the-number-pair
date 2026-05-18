@@ -1,4 +1,10 @@
-// NUMBER PAIR MATCH - MAIN GAME ENGINE 
+let gameSettings = JSON.parse(sessionStorage.getItem('numberMatchSettings'));
+
+if (!gameSettings) {
+    alert("No game settings found. Returning to launcher.");
+    window.location.href = 'index.html';
+}
+//NUMBER PAIR MATCH - MAIN GAME ENGINE 
 // =========================================================
 // This file reads the settings, builds the deck of cards, 
 // and controls the rules of the game (matching, points, and timers).
