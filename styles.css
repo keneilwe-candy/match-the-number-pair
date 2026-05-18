@@ -207,4 +207,18 @@ button:disabled {
     color: var(--text-color);
 }
 
+/* ==========================================
+   MATCH & INCORRECT STATES (OUTLINES ONLY)
+========================================== */
 
+/* Green outline for correct matches */
+.number-card.matched {
+    border-color: #4CAF50 !important; /* Green border */
+    box-shadow: 0 0 12px rgba(76, 175, 80, 0.6) !important; /* Soft green glow */
+}
+
+/* Red outline for incorrect matches */
+.number-card.incorrect {
+    border-color: #F44336 !important; /* Red border */
+    box-shadow: 0 0 12px rgba(244, 67, 54, 0.6) !important; /* Soft red glow */
+}
