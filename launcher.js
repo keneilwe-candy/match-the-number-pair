@@ -38,7 +38,7 @@ setupForm.addEventListener("input", function() {
 
 // --- 3. Saving Settings (Local Storage) ---
 // Local Storage saves data to the user's browser permanently (until cleared).
-saveSettingsBtn.addEventListener("click", function() {
+
 document.getElementById("saveSettingsBtn").addEventListener("click", function() {
     let settings = {
         playerName: playerNameInput.value.trim(),
