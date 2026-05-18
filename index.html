@@ -3,113 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Number Pair Match Launcher</title>
+    <title>Number Pair Match Game</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="page-header">
-      <h1>Number Pair Match</h1>
-      <p>Configure the game, then open the game window.</p>
-    </header>
-
-    <main class="container">
+    <main class="game-window-wrap">
+      
       <section class="card">
-        <h2>Game Setup</h2>
+        <h1>Number Pair Match</h1>
 
-        <form id="setupForm">
-          <div class="form-row">
-            <label for="playerName">Player Name</label>
-            <input
-              type="text"
-              id="playerName"
-              name="playerName"
-              maxlength="20"
-              placeholder="Enter player name"
-              required 
-            />
-          </div>
-
-          <div class="form-row">
-            <label for="boardSize">Board Size</label>
-            <select id="boardSize" name="boardSize">
-              <option value="4x4" selected>4 x 4</option>
-              <option value="4x5">4 x 5</option>
-              <option value="6x6">6 x 6</option>
-            </select>
-          </div>
-
-          <div class="form-row">
-            <label for="difficulty">Difficulty</label>
-            <select id="difficulty" name="difficulty">
-              <option value="easy">Easy</option>
-              <option value="medium" selected>Medium</option>
-              <option value="hard">Hard</option>
-            </select>
-          </div>
-
-          <fieldset>
-            <legend>Pair Type</legend>
-
-            <label class="option-line">
-              <input type="radio" name="pairType" value="numberWord" checked />
-              Number and Word
-            </label>
-
-            <label class="option-line">
-              <input type="radio" name="pairType" value="sumAnswer" />
-              Sum and Answer
-            </label>
-
-            <label class="option-line">
-              <input type="radio" name="pairType" value="mixed" />
-              Mixed
-            </label>
-          </fieldset>
-
-          <fieldset>
-            <legend>Options</legend>
-
-            <label class="option-line">
-              <input type="checkbox" id="showTimer" checked />
-              Show timer
-            </label>
-
-            <label class="option-line">
-              <input type="checkbox" id="enableHints" />
-              Enable hints
-            </label>
-
-            <label class="option-line">
-              <input type="checkbox" id="shuffleAnimation" checked />
-              Shuffle animation
-            </label>
-          </fieldset>
-
-          <div class="button-row">
-            <button type="button" id="openGameBtn">Open Game Window</button>
-            <button type="button" id="saveSettingsBtn">Save Settings</button>
-            <button type="button" id="loadSettingsBtn">Load Settings</button>
-            <button type="button" id="resetSettingsBtn">Reset Settings</button>
-            <button
-              type="button"
-              onclick="window.location.href = 'instructions.html'"
-            >
-              Instructions
-            </button>
-          </div>
-        </form>
-
-        <div class="preview-box">
-          <h3>Live Preview</h3>
-          <p id="previewText">No settings selected yet.</p>
+        <div class="button-row">
+          <button id="startBtn" type="button">Start Game</button>
+          <button id="hintBtn" type="button">Show Hint</button>
+          <button id="saveBtn" type="button">Save Session</button>
+          <button id="loadBtn" type="button">Load Session</button>
+          <button id="resetBtn" type="button">Reset Game</button>
+          <button id="backBtn" type="button">Back to Settings</button>
         </div>
+
+        <div class="stats-grid game-stats-grid">
+          <div class="stat-box">
+            <span class="label">Player</span>
+            <span id="displayPlayer">-</span>
+          </div>
+          <div class="stat-box">
+            <span class="label">Moves</span>
+            <span id="displayMoves">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="label">Matches</span>
+            <span id="displayMatches">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="label">Pairs Left</span>
+            <span id="displayPairsLeft">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="label">Score</span>
+            <span id="displayScore">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="label">Time</span>
+            <span id="displayTime">0 s</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div id="messageArea" class="message-area">
+          Click Start Game when ready.
+        </div>
+      </section>
+
+      <section class="card">
+        <div id="boardInfo" class="board-info">
+          <span><strong>Board:</strong> <span id="displayBoardSize">-</span></span>
+          <span><strong>Difficulty:</strong> <span id="displayDifficulty">-</span></span>
+          <span><strong>Pair Type:</strong> <span id="displayPairType">-</span></span>
+          <span><strong>Best Score Cookie:</strong> <span id="displayBestScore">0</span></span>
+        </div>
+
+        <div id="gameBoard" class="game-board"></div>
+      </section>
+
+      <section class="card">
+        <h2>Game Log</h2>
+        <div id="logArea" class="log-area"></div>
       </section>
     </main>
 
-    <footer class="page-footer">
-      <p>Number Pair Match Launcher</p>
-    </footer>
-
-    <script src="launcher.js"></script>
+    <script src="game.js"></script>
   </body>
 </html>
